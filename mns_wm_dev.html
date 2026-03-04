@@ -54,29 +54,17 @@
       }
     );
   }
-
- // Function to handle language change
-        function changeLanguage(selectElement) {
-            const selectedLocale = selectElement.value;
-            localStorage.setItem("selectedLocale", selectedLocale);
-            location.reload(); // Refresh the page
-        }
-
         // Function to initialize Genesys with stored locale
         function initializeGenesys() {
-            const locale = localStorage.getItem("selectedLocale") || "en-GB"; // Default to en-GB
             Genesys("command", "Database.set", {
                 messaging: {
                     customAttributes: {
                         name: "GSD Systems Test",
-                        locale: locale,
-                        webUserEmail: "homer.simpson@ccemail.com"
+                        locale: "en-GB",
+                        webUserEmail: "gsddev@ccemail.com"
                     }
                 }
             });
-
-            // Set dropdown to stored value
-            document.getElementById("languageSelect").value = locale;
         }
 
         window.onload = initializeGenesys;
@@ -87,9 +75,5 @@
     <header>
         <h1>Messaging Testing - MNS DEV</h1><p></p>
     </header>
-    <label for="languageSelect">Choose Language:</label>
-    <select id="languageSelect" onchange="changeLanguage(this)">
-        <option value="en-GB">English (UK)</option>
-    </select>
 </body>
 </html>
