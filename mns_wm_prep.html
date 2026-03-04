@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Web Messaging Testing</title>
+    <title>MNS WM Testing - PREP</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -54,17 +54,29 @@
       }
     );
   }
+
+ // Function to handle language change
+        function changeLanguage(selectElement) {
+            const selectedLocale = selectElement.value;
+            localStorage.setItem("selectedLocale", selectedLocale);
+            location.reload(); // Refresh the page
+        }
+
         // Function to initialize Genesys with stored locale
         function initializeGenesys() {
+            const locale = localStorage.getItem("selectedLocale") || "en-GB"; // Default to en-GB
             Genesys("command", "Database.set", {
                 messaging: {
                     customAttributes: {
-                        name: "GSD Systems Test",
+                        name: "GSD Business Test",
                         locale: "en-GB",
                         webUserEmail: "GSDBusinessTester@ccemail.com"
                     }
                 }
             });
+
+            // Set dropdown to stored value
+            document.getElementById("languageSelect").value = locale;
         }
 
         window.onload = initializeGenesys;
@@ -75,5 +87,12 @@
     <header>
         <h1>Messaging Testing - MNS PREP</h1><p></p>
     </header>
+    <label for="languageSelect">Choose Language:</label>
+    <select id="languageSelect" onchange="changeLanguage(this)">
+        <option value="en-GB">English (UK)</option>
+        <option value="fr-FR">Français (FR)</option>
+        <option value="de-DE">Deutsch (DE)</option>
+        <option value="es-ES">Espanol (ES)</option>
+    </select>
 </body>
 </html>
