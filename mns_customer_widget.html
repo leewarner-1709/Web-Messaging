@@ -11,6 +11,18 @@
     environment: 'prod-euc1',
     deploymentId: '463c5390-2024-49e1-9b6b-b284db710257'
   });
+  //Toggle the Genesyschat 
+function toggleMessenger() {
+  Genesys("command","Messenger.open",{},
+    function(o) {
+      // fulfilled callback
+    },
+    function(o) {
+      // if rejected
+      Genesys("command", "Messenger.close");
+    }
+  );
+}
 </script>
 
 //Toggle the Genesyschat 
