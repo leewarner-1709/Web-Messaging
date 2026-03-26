@@ -55,28 +55,35 @@
     );
   }
 
- // Function to handle language change
+ // Function to handle language change and email
         function changeLanguage(selectElement) {
             const selectedLocale = selectElement.value;
             localStorage.setItem("selectedLocale", selectedLocale);
             location.reload(); // Refresh the page
         }
+            function changeEmail(selectElement) {
+            const selectedEmail = emailSelect.value;
+            localStorage.setItem("selectedEmail", selectedEmail);
+            location.reload(); // Refresh the page
+        }
 
-        // Function to initialize Genesys with stored locale
+        // Function to initialize Genesys with stored locale and email
         function initializeGenesys() {
             const locale = localStorage.getItem("selectedLocale") || "en-GB"; // Default to en-GB
+            const email = localStorage.getItem("selectedEmail") || "GSDSystems@computacenter.com"; // Default to GSD Systems
             Genesys("command", "Database.set", {
                 messaging: {
                     customAttributes: {
                         name: "GSD Systems Test",
                         locale: locale,
-                        webUserEmail: "lee.warner@computacenter.com"
+                        webUserEmail: email
                     }
                 }
             });
 
             // Set dropdown to stored value
             document.getElementById("languageSelect").value = locale;
+            document.getElementById("emailSelect").value = email;
         }
 
         window.onload = initializeGenesys;
@@ -95,6 +102,6 @@
         <option value="es-ES">Espanol (ES)</option>
     </select>
     <br></br>
-    <p>Enter email address : </p><input type="text" id="email"/>
+    <p>Enter email address : </p><input type="text" id="emailSelect" onchange="changeEmail(this)"/>
 </body>
 </html>
