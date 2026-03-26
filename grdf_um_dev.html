@@ -61,6 +61,11 @@
             localStorage.setItem("selectedLocale", selectedLocale);
             location.reload(); // Refresh the page
         }
+            function changeName(selectElement) {
+            const selectedName = nameSelect.value;
+            localStorage.setItem("selectedName", selectedName);
+            location.reload(); // Refresh the page
+        }
             function changeEmail(selectElement) {
             const selectedEmail = emailSelect.value;
             localStorage.setItem("selectedEmail", selectedEmail);
@@ -70,11 +75,12 @@
         // Function to initialize Genesys with stored locale and email
         function initializeGenesys() {
             const locale = localStorage.getItem("selectedLocale") || "en-GB"; // Default to en-GB
+            const username = localStorage.getItem("selectedName") || "GSD Systems"; // Default to GSD Systems
             const email = localStorage.getItem("selectedEmail") || "GSDSystems@computacenter.com"; // Default to GSD Systems
             Genesys("command", "Database.set", {
                 messaging: {
                     customAttributes: {
-                        name: "GSD Systems Test",
+                        name: username,
                         locale: locale,
                         webUserEmail: email
                     }
@@ -83,6 +89,7 @@
 
             // Set dropdown to stored value
             document.getElementById("languageSelect").value = locale;
+            document.getElementById("nameSelect").value = username;
             document.getElementById("emailSelect").value = email;
         }
 
@@ -102,6 +109,7 @@
         <option value="es-ES">Espanol (ES)</option>
     </select>
     <br></br>
+    <p>Enter name : </p><input type="text" style="width:300px" id="nameSelect" onchange="changeName(this)"/>
     <p>Enter email address (and then press TAB) : </p><input type="text" style="width:300px" id="emailSelect" onchange="changeEmail(this)"/>
 </body>
 </html>
