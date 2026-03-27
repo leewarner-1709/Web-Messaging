@@ -31,7 +31,7 @@
         }
     </style>
 <script type="text/javascript" charset="utf-8">
-  let deployid = localStorage.getItem("selectedDeploymentID")
+  let deployid = localStorage.getItem("selectedDeploymentID") || "daafc71c-9565-49bf-9902-ff89f4849e29"; // Default to GSD Systems UM DEV
   // Define the Genesys script
   (function (g, e, n, es, ys) {
     g['_genesysJs'] = e;
@@ -41,7 +41,7 @@
     g[e].t = 1 * new Date();
     g[e].c = es;
     ys = document.createElement('script'); ys.async = 1; ys.src = n; ys.charset = 'utf-8'; 
-    document.head.appendChild(ys); deployid = 'daafc71c-9565-49bf-9902-ff89f4849e29';
+    document.head.appendChild(ys);
   })(window, 'Genesys', 'https://apps.mypurecloud.de/genesys-bootstrap/genesys.min.js', {
     environment: 'prod-euc1',
     deploymentId: deployid
@@ -83,7 +83,7 @@
             const locale = localStorage.getItem("selectedLocale") || "en-GB"; // Default to en-GB
             const username = localStorage.getItem("selectedName") || "GSD Systems"; // Default to GSD Systems
             const email = localStorage.getItem("selectedEmail") || "GSDSystems@computacenter.com"; // Default to GSD Systems
-            const deployid = localStorage.getItem("selectedDeploymentID") || "daafc71c-9565-49bf-9902-ff89f4849e29"; // Default to GSD Systems UM DEV
+            //const deployid = localStorage.getItem("selectedDeploymentID") || "daafc71c-9565-49bf-9902-ff89f4849e29"; // Default to GSD Systems UM DEV
             Genesys("command", "Database.set", {
                 messaging: {
                     customAttributes: {
