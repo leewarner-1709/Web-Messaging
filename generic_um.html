@@ -62,6 +62,11 @@
             localStorage.setItem("selectedLocale", selectedLocale);
             location.reload(); // Refresh the page
         }
+            function changeMedia(selectElement) {
+            const selectedMedia = selectElement.value;
+            localStorage.setItem("selectedMedia", selectedMedia);
+            location.reload(); // Refresh the page
+        }
             function changeName(selectElement) {
             const selectedName = nameSelect.value;
             localStorage.setItem("selectedName", selectedName);
@@ -70,6 +75,11 @@
             function changeEmail(selectElement) {
             const selectedEmail = emailSelect.value;
             localStorage.setItem("selectedEmail", selectedEmail);
+            location.reload(); // Refresh the page
+        }
+            function changeCustomer(selectElement) {
+            const selectedCustomer = customerSelect.value;
+            localStorage.setItem("selectedCustomer", selectedCustomer);
             location.reload(); // Refresh the page
         }
             function changeDeploymentID(selectElement) {
@@ -83,13 +93,18 @@
             const locale = localStorage.getItem("selectedLocale") || "en-GB"; // Default to en-GB
             const username = localStorage.getItem("selectedName") || "GSD Systems"; // Default to GSD Systems
             const email = localStorage.getItem("selectedEmail") || "GSDSystems@computacenter.com"; // Default to GSD Systems
+            const customer = localStorage.getItem("selectedCustomer") || "DEMO"; // Default to Demo
+            const clientMedia = localStorage.getItem("selectedMedia") || "WEB"; // Default to Web Messenger
             //const deployid = localStorage.getItem("selectedDeploymentID") || "daafc71c-9565-49bf-9902-ff89f4849e29"; // Default to GSD Systems UM DEV
             Genesys("command", "Database.set", {
                 messaging: {
                     customAttributes: {
                         name: username,
                         locale: locale,
-                        webUserEmail: email
+                        language: locale,
+                        webUserEmail: email,
+                        custName: customer,
+                        media: clientMedia
                     }
                 }
             });
@@ -98,6 +113,8 @@
             document.getElementById("languageSelect").value = locale;
             document.getElementById("nameSelect").value = username;
             document.getElementById("emailSelect").value = email;
+            document.getElementById("customerSelect").value = customer;
+            document.getElementById("mediaSelect").value = clientMedia;
             document.getElementById("deploymentidSelect").value = deployid;
         }
 
@@ -118,9 +135,16 @@
         <option value="de-DE">Deutsch (DE)</option>
         <option value="es-ES">Espanol (ES)</option>
     </select>
+        <select id="medaSelect" onchange="changeMedia(this)">
+        <option value="Teams">MS Teams</option>
+        <option value="LACI">LACI</option>
+        <option value="Google Chat">Google Chat</option>
+        <option value="WEB">Web Messenger</option>
+    </select>
     <br></br>
     <p>Enter name : </p><input type="text" style="width:300px" id="nameSelect" onchange="changeName(this)"/>
     <p>Enter email address : </p><input type="text" style="width:300px" id="emailSelect" onchange="changeEmail(this)"/>
+    <p>Enter Customer division : </p><input type="text" style="width:300px" id="nameSelect" onchange="changeCustomer(this)"/>
     <p>Enter deploymentID (and then press TAB) : </p><input type="text" style="width:300px" id="deploymentidSelect" onchange="changeDeploymentID(this)"/>
 </body>
 </html>
